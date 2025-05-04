@@ -15,7 +15,9 @@ public class MainManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame()
@@ -30,5 +32,10 @@ public class MainManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("menu");
     }
 }
