@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
 
-    // Get spawnable object prefabs
+    // Get spawnable object prefabs and the amount to pool
     [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
 
     [Serializable]
@@ -40,6 +39,4 @@ public class GameManager : MonoBehaviour
     {
         ObjectPooling.Instance.ReleaseObject(obj);
     }
-
-
 }

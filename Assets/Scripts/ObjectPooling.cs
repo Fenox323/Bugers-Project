@@ -75,6 +75,7 @@ public class ObjectPooling : MonoBehaviour
 
     public void ReleaseObject(GameObject objectToRelease)
     {
+        // Deactivate an object and return it to the pool
         objectToRelease.SetActive(false);
     }
 }
