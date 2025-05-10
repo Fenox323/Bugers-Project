@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1196026203581560712}
   - component: {fileID: 839180745016827573}
   - component: {fileID: -4610479604406687873}
+  - component: {fileID: 5868377696547838228}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 533730079574060501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.26, y: 4, z: 4.32}
+  m_LocalPosition: {x: -12.73, y: 4, z: 22.87}
   m_LocalScale: {x: 3.5, y: 4, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +104,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -121,5 +122,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f914b25139fe69141a341f2db1574ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patienceTimerInSec: 6
+  speed: 15
+--- !u!114 &5868377696547838228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533730079574060501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10236252d74a3443ab4d769655d8762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

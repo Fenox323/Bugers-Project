@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CheeseburgerOrder : MonoBehaviour
+public class CheeseburgerOrder : Order
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
