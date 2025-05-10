@@ -12,11 +12,13 @@ public class Client : MonoBehaviour
     private GameObject order;
     private bool hasReceivedOrder;
     private List<GameObject> availableOrders = new List<GameObject>();
+    private GameObject speechBubble;
 
     void Awake()
     {
         // Setup the object
         availableOrders = GameManager.Instance.availableOrders;
+        speechBubble = gameObject.transform.Find("Speech Bubble").gameObject;
     }
 
     public void Initialize()
@@ -47,6 +49,21 @@ public class Client : MonoBehaviour
         // Create a new order and assign it to the client
         order = Instantiate(order);
         order.transform.SetParent(gameObject.transform);
+
+        // Make a speech bubble appear
+        ToggleSpeechBubble(true);
+    }
+
+    void ToggleSpeechBubble()
+    {
+        if (speechBubble.activeSelf) speechBubble.SetActive(false);
+        else speechBubble.SetActive(true);
+    }
+
+    void ToggleSpeechBubble(bool activate)
+    {
+        if (activate) speechBubble.SetActive(true);
+        else speechBubble.SetActive(false);
     }
 
     public void Leave()
@@ -77,8 +94,6 @@ public class Client : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Client lost patience.");
-
         if (orderTimeout)
         {
             // TODO: Fail an order - reference to GameManager
@@ -90,6 +105,9 @@ public class Client : MonoBehaviour
 
         // Remove from queue
         GameManager.queue.RemoveFromQueue(gameObject);
+
+        // Disable speech bubble
+        ToggleSpeechBubble(false);
 
         // Move to exit
         target = GameManager.Instance.GetPosition("Exit");
@@ -108,11 +126,8 @@ public class Client : MonoBehaviour
             }
             // Finish the movement to the target
             transform.position = target;
-            Debug.Log("Movement finished.");
 
             yield return new WaitWhile(() => transform.position == target);
         }
     }
 }
-
-// Position in front of the desk: 10.26; 4; 4.32

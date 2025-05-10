@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; set; }
-    public static Queue queue;
+    public static GameManager Instance { get; private set; }
+    public static Queue queue { get; private set; }
+    private CameraManagement mainCamera;
 
     [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
     public List<GameObject> availableOrders = new List<GameObject>();
 
+    public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos;
 
     [Serializable]
@@ -23,9 +25,11 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         queue = GameObject.Find("Ordering Zone").GetComponent<Queue>();
+        mainCamera = GameObject.Find("Camera").GetComponent<CameraManagement>();
 
         startPos = GameObject.Find("Start Zone").transform.position;
         exitPos = GameObject.Find("Exit Zone").transform.position;
+        activeSpot = 1;
     }
 
     private void Start()
@@ -71,6 +75,15 @@ public class GameManager : MonoBehaviour
             default:
                 Debug.LogError("Position object not found.");
                 return Vector3.zero;
+        }
+    }
+
+    public void SwitchSpot(int spot)
+    {
+        if (activeSpot != spot)
+        {
+            activeSpot = spot;
+            mainCamera.ChangeView(spot);
         }
     }
 

@@ -11,7 +11,11 @@ public class Queue : MonoBehaviour
     public void AddToQueue(GameObject client)
     {
         clientsInQueue.Add(client);
-        client.GetComponent<Client>().target = transform.position + (new Vector3(-distanceBetweenClients, 0, 0) * (clientsInQueue.Count - 1));
+
+        if (clientsInQueue.Count <= 7)
+        {
+            client.GetComponent<Client>().target = transform.position + (new Vector3(-distanceBetweenClients, 0, 0) * (clientsInQueue.Count - 1));
+        }
     }
 
     public void RemoveFromQueue(GameObject client = null)
@@ -31,7 +35,7 @@ public class Queue : MonoBehaviour
 
     private void MoveInQueue()
     {
-        for (int i = 0; i < clientsInQueue.Count; i++)
+        for (int i = 0; i < clientsInQueue.Count && i < 7; i++)
         {
             clientsInQueue[i].GetComponent<Client>().target = transform.position + (new Vector3(-distanceBetweenClients, 0, 0) * i);
         }
