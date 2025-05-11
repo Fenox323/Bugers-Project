@@ -17,7 +17,7 @@ public class ObjectPooling : MonoBehaviour
         pooledObjects = new List<GameObject[]>();
     }
 
-    public void PoolObject(GameObject objectToPool, int amount)
+    public void PoolObject(GameObject objectToPool, int amount, GameObject parent = null)
     {
         GameObject[] pooledObjectArray = new GameObject[amount];
 
@@ -28,6 +28,14 @@ public class ObjectPooling : MonoBehaviour
             instance.SetActive(false);
             // Push an object to an array
             pooledObjectArray[i] = instance;
+        }
+        // Give objects a parent
+        if (parent != null)
+        {
+            for (int i = 0;i < amount; i++)
+            {
+                pooledObjectArray[i].transform.SetParent(parent.transform, false);
+            }
         }
         // Add the new array with pooled objects to the pooled objects list
         pooledPrefabs.Add(objectToPool);

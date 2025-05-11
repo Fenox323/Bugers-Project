@@ -1,19 +1,33 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private AnimationCurve easingCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private float moveTime;
+
+    public void Move(Vector3 pos)
     {
-        
+        StartCoroutine(SmoothChangePosition(pos, moveTime));
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SmoothChangePosition(Vector3 target, float time)
     {
-        
+        Transform obj = transform;
+        Vector3 start = obj.position;
+        float elapsed = 0;
+
+        while (elapsed < time)
+        {
+            float t = elapsed / time;
+            float easedT = easingCurve.Evaluate(t);
+
+            // Move towards the target
+            obj.position = Vector3.Slerp(start, target, easedT);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.position = target;
     }
 }
-
-// Position in front of the client: 10.99; 4; -4.85
-// Position in front of the machine: 21.5; 4; -4.85

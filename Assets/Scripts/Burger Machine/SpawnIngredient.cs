@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+public class SpawnIngredient : MonoBehaviour
+{
+    [SerializeField] private List<GameObject> ingredients;
+    private Vector3 spawnPosition;
+
+    private void Start()
+    {
+        spawnPosition = transform.Find("Spawn Zone").transform.position;
+    }
+
+    public void Spawn(int ingredient)
+    {
+        if (ingredient >= 0)
+        {
+            GameObject prefab = ingredients[ingredient];
+
+            if (prefab != null)
+            {
+                GameObject obj = GameManager.Instance.CreateObject(prefab);
+                if (obj != null)
+                {
+                    obj.transform.SetParent(GameObject.Find("Burger").transform);
+                    obj.transform.position = spawnPosition + new Vector3(Random.Range(-0.2f, 0.2f), 0, Random.Range(-0.2f, 0.2f));
+                }
+            }
+        }
+    }
+}

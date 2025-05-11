@@ -7,12 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public static Queue queue { get; private set; }
     private CameraManagement mainCamera;
+    [SerializeField] private Player player;
 
     [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
     public List<GameObject> availableOrders = new List<GameObject>();
 
     public int activeSpot { get; private set; }
-    private Vector3 startPos, exitPos;
+    private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
 
     [Serializable]
     public class PrefabPool
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
 
         startPos = GameObject.Find("Start Zone").transform.position;
         exitPos = GameObject.Find("Exit Zone").transform.position;
+        playerClientPos = GameObject.Find("Client Zone").transform.position;
+        playerBurgerPos = GameObject.Find("Burger Zone").transform.position;
         activeSpot = 1;
     }
 
@@ -78,12 +81,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Vector3 GetPlayerPosition(string zone)
+    {
+        switch (zone)
+        {
+            case "Client":
+                return playerClientPos;
+            case "Burger":
+                return playerBurgerPos;
+            default:
+                Debug.LogError("Player position not found.");
+                return Vector3.zero;
+        }
+    }
+
     public void SwitchSpot(int spot)
     {
         if (activeSpot != spot)
         {
             activeSpot = spot;
             mainCamera.ChangeView(spot);
+
+            string zone = "";
+            switch (spot)
+            {
+                case 0:
+                    zone = "Burger"; break;
+                case 1:
+                    zone = "Client"; break;
+            }
+            Vector3 pos = GetPlayerPosition(zone);
+            player.Move(pos);
         }
     }
 
