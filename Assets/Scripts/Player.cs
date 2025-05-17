@@ -29,5 +29,10 @@ public class Player : MonoBehaviour
         }
 
         obj.position = target;
+
+        if (transform.childCount > 0)
+        {
+            OrderLogic.Instance.GiveToCustomer(transform.GetChild(0).gameObject);
+        }
     }
 }

@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     [SerializeField] private float speed;
     public Vector3 target { get; set; }
     private GameObject order;
-    private bool hasReceivedOrder;
+    public bool hasReceivedOrder { get; set; }
     private List<GameObject> availableOrders = new List<GameObject>();
     private GameObject speechBubble;
 

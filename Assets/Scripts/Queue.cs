@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class Queue : MonoBehaviour
 {
+    public static Queue Instance;
+
     [SerializeField] private float distanceBetweenClients;
 
-    private List<GameObject> clientsInQueue = new List<GameObject>();
+    public List<GameObject> clientsInQueue { get; private set; } = new List<GameObject>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void AddToQueue(GameObject client)
     {

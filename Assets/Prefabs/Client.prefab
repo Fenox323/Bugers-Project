@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5868377696547838228}
   m_Layer: 0
   m_Name: Client
-  m_TagString: Untagged
+  m_TagString: Client
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f914b25139fe69141a341f2db1574ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patienceTimerInSec: 6
+  patienceTimerInSec: 20
   speed: 15
 --- !u!114 &5868377696547838228
 MonoBehaviour:

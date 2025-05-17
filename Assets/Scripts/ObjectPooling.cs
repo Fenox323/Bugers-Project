@@ -34,7 +34,7 @@ public class ObjectPooling : MonoBehaviour
         {
             for (int i = 0;i < amount; i++)
             {
-                pooledObjectArray[i].transform.SetParent(parent.transform, false);
+                pooledObjectArray[i].transform.SetParent(parent.transform, true);
             }
         }
         // Add the new array with pooled objects to the pooled objects list

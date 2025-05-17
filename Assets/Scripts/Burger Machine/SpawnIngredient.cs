@@ -14,7 +14,7 @@ public class SpawnIngredient : MonoBehaviour
 
     public void Spawn(int ingredient)
     {
-        if (ingredient >= 0)
+        if (ingredient >= 0 && GameManager.Instance.activeBurger.transform.childCount <= 15)
         {
             GameObject prefab = ingredients[ingredient];
 
@@ -23,8 +23,10 @@ public class SpawnIngredient : MonoBehaviour
                 GameObject obj = GameManager.Instance.CreateObject(prefab);
                 if (obj != null)
                 {
-                    obj.transform.SetParent(GameObject.Find("Burger").transform);
-                    obj.transform.position = spawnPosition + new Vector3(Random.Range(-0.2f, 0.2f), 0, Random.Range(-0.2f, 0.2f));
+                    obj.transform.SetParent(GameManager.Instance.activeBurger.transform);
+                    obj.transform.position = spawnPosition;
+
+                    obj.GetComponent<Ingredient>().Spawn();
                 }
             }
         }

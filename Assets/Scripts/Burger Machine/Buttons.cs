@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Buttons : MonoBehaviour
 {
-    [SerializeField] private SpawnIngredient spawnScript;
+    private SpawnIngredient spawnScript;
     [SerializeField] private int ingredientToSpawn = -1;
 
     private void Start()

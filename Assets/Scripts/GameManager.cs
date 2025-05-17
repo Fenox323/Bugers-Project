@@ -14,12 +14,14 @@ public class GameManager : MonoBehaviour
 
     public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
+    public GameObject activeBurger;
 
     [Serializable]
     public class PrefabPool
     {
         public GameObject obj;
         public int amount;
+        public GameObject parent;
     }
 
     private void Awake()
@@ -40,8 +42,10 @@ public class GameManager : MonoBehaviour
         // Pool objects at the start of the game
         foreach (PrefabPool prefab in prefabs)
         {
-            ObjectPooling.Instance.PoolObject(prefab.obj, prefab.amount);
+            ObjectPooling.Instance.PoolObject(prefab.obj, prefab.amount, prefab.parent);
         }
+        // Create a new burger
+        CreateBurger();
     }
 
     public GameObject CreateObject(GameObject prefab)
@@ -113,6 +117,14 @@ public class GameManager : MonoBehaviour
             Vector3 pos = GetPlayerPosition(zone);
             player.Move(pos);
         }
+    }
+
+    public GameObject CreateBurger()
+    {
+        activeBurger = CreateObject("Burger");
+        activeBurger.transform.position = new Vector3(22.055f, 4.661f, 0.004f);
+        activeBurger.transform.GetChild(0).localPosition = Vector3.zero;
+        return activeBurger;
     }
 
     void OnJump()
