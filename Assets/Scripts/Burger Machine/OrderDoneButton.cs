@@ -4,6 +4,6 @@ public class OrderDoneButton : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        OrderLogic.Instance.OrderDone();
+        if (GameManager.Instance.buttonsEnabled) OrderLogic.Instance.OrderDone();
     }
 }

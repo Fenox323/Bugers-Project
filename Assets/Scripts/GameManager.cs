@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private CameraManagement mainCamera;
     [SerializeField] private Player player;
     private GameUI gameUI;
+    
 
     [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
     public List<GameObject> availableOrders = new List<GameObject>();
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
     public GameObject activeBurger { get; set; }
     private int score = 0;
+    public bool buttonsEnabled { get; set; } = true;
 
     [SerializeField] private float clientSpawnRate;
 
@@ -130,9 +132,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject CreateBurger()
     {
-        activeBurger = CreateObject("Burger");
-        activeBurger.transform.position = new Vector3(22.055f, 4.661f, 0.004f);
         activeBurger.transform.GetChild(0).localPosition = Vector3.zero;
+        activeBurger.transform.GetChild(0).localRotation = Quaternion.Euler(Vector3.zero);
+        activeBurger = CreateObject("Burger");
+        activeBurger.transform.position = new Vector3(22.055f, 4.67f, 0.004f);
+        activeBurger.transform.rotation = Quaternion.Euler(Vector3.zero);
         return activeBurger;
     }
 

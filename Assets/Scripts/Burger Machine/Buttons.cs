@@ -13,7 +13,6 @@ public class Buttons : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Button " + gameObject.name + " clicked.");
-        spawnScript.Spawn(ingredientToSpawn);
+        if (GameManager.Instance.buttonsEnabled) spawnScript.Spawn(ingredientToSpawn);
     }
 }

@@ -54,6 +54,12 @@ public class ObjectPooling : MonoBehaviour
             // Check if object is not active in Hierarchy
             if (!obj.activeInHierarchy)
             {
+                // Zero out object physics
+                if (obj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+
                 // Enable an object and return it
                 obj.SetActive(true);
                 return obj;

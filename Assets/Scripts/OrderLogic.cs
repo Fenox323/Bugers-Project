@@ -88,7 +88,7 @@ public class OrderLogic : MonoBehaviour
         StartCoroutine(MarkForDeletion(burger, time));
     }
 
-    IEnumerator MarkForDeletion(GameObject burger, float time)
+    public IEnumerator MarkForDeletion(GameObject burger, float time)
     {
         yield return new WaitForSeconds(time);
 
