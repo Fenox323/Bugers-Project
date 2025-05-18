@@ -35,6 +35,8 @@ public class SpawnIngredient : MonoBehaviour
                     rb.AddForce(Vector3.down * sendForce, ForceMode.Impulse);
 
                     obj.GetComponent<Ingredient>().Spawn();
+
+                    GameManager.Instance.activeBurger.GetComponent<BurgerIngredients>().ingredients.Add(ingredient);
                 }
             }
         }

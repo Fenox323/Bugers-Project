@@ -1,7 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI scoreboard;
+
     private void Start()
     {
         transform.GetChild(GameManager.Instance.activeSpot).gameObject.SetActive(false);
@@ -19,5 +22,10 @@ public class GameUI : MonoBehaviour
         GameManager.Instance.SwitchSpot(1);
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
+    }
+
+    public void ChangeScore(int score)
+    {
+        scoreboard.text = "Score: " + score.ToString();
     }
 }

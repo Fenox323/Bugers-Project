@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
     public GameObject activeBurger { get; set; }
+    private int score = 0;
 
     [SerializeField] private float clientSpawnRate;
 
@@ -132,6 +134,18 @@ public class GameManager : MonoBehaviour
         activeBurger.transform.position = new Vector3(22.055f, 4.661f, 0.004f);
         activeBurger.transform.GetChild(0).localPosition = Vector3.zero;
         return activeBurger;
+    }
+
+    public void GoodBurger()
+    {
+        score += 10;
+        gameUI.ChangeScore(score);
+    }
+
+    public void BadBurger()
+    {
+        score -= 20;
+        gameUI.ChangeScore(score);
     }
 
     void CreateClient()

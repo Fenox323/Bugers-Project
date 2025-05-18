@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class RandomOrder : Order
 {
-    protected override int[] ingredients { get; set; }
+    public override int[] ingredients { get; set; }
     protected override GameObject clientSpeechBox { get; set; }
     protected override GameObject clientSpeechBoxObj { get; set; }
 

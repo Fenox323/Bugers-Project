@@ -1,4 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -39,20 +42,34 @@ public class OrderLogic : MonoBehaviour
 
             if (client.transform.GetComponentInChildren<Order>() != null)
             {
-                // Transfer the burger to the client
-                burger.transform.SetParent(client.transform, true);
-                burger.transform.localPosition = new Vector3(0.166f, 0.368f, -0.737f);
+                bool correctOrder = CheckOrder(burger, client);
 
-                foreach (Rigidbody rb in burger.transform.GetComponentsInChildren<Rigidbody>())
+                if (!correctOrder)
                 {
-                    // Freeze physics
-                    rb.constraints = RigidbodyConstraints.FreezeAll;
-                    rb.useGravity = false;
+                    foreach (Rigidbody rb in burger.transform.GetComponentsInChildren<Rigidbody>())
+                    {
+                        burger.transform.SetParent(null, true);
+                        rb.AddForce(Vector3.back * throwForce * 1.5f, ForceMode.Impulse);
+                    }
+
+                    time += 3f;
+                }
+                else
+                {
+                    // Transfer the burger to the client
+                    burger.transform.SetParent(client.transform, true);
+                    burger.transform.localPosition = new Vector3(0.166f, 0.368f, -0.737f);
+
+                    foreach (Rigidbody rb in burger.transform.GetComponentsInChildren<Rigidbody>())
+                    {
+                        // Freeze physics
+                        rb.constraints = RigidbodyConstraints.FreezeAll;
+                        rb.useGravity = false;
+                    }
                 }
 
                 // Make the client receive an order
-                client.GetComponent<Client>().CompleteOrder(CheckOrder(burger, client));
-
+                client.GetComponent<Client>().CompleteOrder(correctOrder);
 
                 // Delete the burger
                 StartCoroutine(MarkForDeletion(burger, time));
@@ -97,6 +114,9 @@ public class OrderLogic : MonoBehaviour
 
     bool CheckOrder(GameObject burger, GameObject client)
     {
-        return true;
+        List<int> burgerList = burger.GetComponent<BurgerIngredients>().ingredients;
+        int[] orderList = client.GetComponent<Client>().order.GetComponent<Order>().ingredients;
+
+        return orderList.SequenceEqual(burgerList);
     }
 }

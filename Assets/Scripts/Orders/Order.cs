@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Order : MonoBehaviour
 {
-    protected abstract int[] ingredients { get; set; }
+    public abstract int[] ingredients { get; set; }
     protected abstract GameObject clientSpeechBox { get; set; }
     protected abstract GameObject clientSpeechBoxObj { get; set; }
 

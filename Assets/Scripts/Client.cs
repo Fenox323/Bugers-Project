@@ -9,7 +9,7 @@ public class Client : MonoBehaviour
     [SerializeField] private float patienceTimerInSec;
     [SerializeField] private float speed;
     public Vector3 target { get; set; }
-    private GameObject order;
+    public GameObject order { get; set; }
     public bool hasReceivedOrder { get; set; }
     private List<GameObject> availableOrders = new List<GameObject>();
     private GameObject speechBubble;
@@ -102,11 +102,11 @@ public class Client : MonoBehaviour
 
         if (!orderTimeout && correctOrder)
         {
-            // TODO: complete an order - reference to GameManager
+            GameManager.Instance.GoodBurger();
         }
         else
         {
-            // TODO: fail an order - reference to GameManager
+            GameManager.Instance.BadBurger();
         }
 
         // Remove from queue
