@@ -1,16 +1,23 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-public class Order : MonoBehaviour
+public abstract class Order : MonoBehaviour
 {
-    void Start()
+    protected abstract int[] ingredients { get; set; }
+    protected abstract GameObject clientSpeechBox { get; set; }
+    protected abstract GameObject clientSpeechBoxObj { get; set; }
+
+    public virtual void ShowBurgerOrder()
     {
-        
+        clientSpeechBoxObj = Instantiate(clientSpeechBox);
+        clientSpeechBoxObj.transform.SetParent(transform.parent.Find("Speech Bubble"), true);
+        clientSpeechBoxObj.transform.localPosition = Vector3.zero;
     }
 
-    void Update()
+    public virtual void HideBurgerOrder()
     {
-        
+        Destroy(clientSpeechBoxObj);
     }
 }

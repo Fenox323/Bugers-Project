@@ -25,6 +25,11 @@ public class SpawnIngredient : MonoBehaviour
                 {
                     obj.transform.SetParent(GameManager.Instance.activeBurger.transform);
                     obj.transform.position = spawnPosition;
+                    obj.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                    Rigidbody rb = obj.GetComponent<Rigidbody>();
+                    rb.constraints = RigidbodyConstraints.None;
+                    rb.useGravity = true;
 
                     obj.GetComponent<Ingredient>().Spawn();
                 }

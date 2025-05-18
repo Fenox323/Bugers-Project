@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
     public bool hasReceivedOrder { get; set; }
     private List<GameObject> availableOrders = new List<GameObject>();
     private GameObject speechBubble;
+    private bool correctOrder;
 
     void Awake()
     {
@@ -54,16 +55,21 @@ public class Client : MonoBehaviour
         ToggleSpeechBubble(true);
     }
 
-    void ToggleSpeechBubble()
+    void ToggleSpeechBubble(bool? m_activate = null)
     {
-        if (speechBubble.activeSelf) speechBubble.SetActive(false);
-        else speechBubble.SetActive(true);
-    }
+        bool activate;
 
-    void ToggleSpeechBubble(bool activate)
-    {
-        if (activate) speechBubble.SetActive(true);
-        else speechBubble.SetActive(false);
+        if (m_activate == null) activate = !speechBubble.activeSelf;
+        else activate = (bool)m_activate;
+
+        speechBubble.SetActive(activate);
+        if (activate)
+        {
+            order.GetComponent<Order>().ShowBurgerOrder();
+        } else
+        {
+            order.GetComponent<Order>().HideBurgerOrder();
+        }
     }
 
     public void Leave()
@@ -94,13 +100,13 @@ public class Client : MonoBehaviour
             yield return null;
         }
 
-        if (orderTimeout)
+        if (!orderTimeout && correctOrder)
         {
-            // TODO: Fail an order - reference to GameManager
+            // TODO: complete an order - reference to GameManager
         }
         else
         {
-            // TODO: Complete an order - reference to GameManager
+            // TODO: fail an order - reference to GameManager
         }
 
         // Remove from queue
@@ -111,6 +117,12 @@ public class Client : MonoBehaviour
 
         // Move to exit
         target = GameManager.Instance.GetPosition("Exit");
+    }
+
+    public void CompleteOrder(bool correct)
+    {
+        hasReceivedOrder = true;
+        correctOrder = correct;
     }
 
     IEnumerator MoveToPosition()

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
-    public GameObject activeBurger;
+    public GameObject activeBurger { get; set; }
 
     [Serializable]
     public class PrefabPool

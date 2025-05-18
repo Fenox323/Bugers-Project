@@ -51,7 +51,8 @@ public class OrderLogic : MonoBehaviour
                 }
 
                 // Make the client receive an order
-                client.GetComponent<Client>().hasReceivedOrder = true;
+                client.GetComponent<Client>().CompleteOrder(CheckOrder(burger, client));
+
 
                 // Delete the burger
                 StartCoroutine(MarkForDeletion(burger, time));
@@ -92,5 +93,10 @@ public class OrderLogic : MonoBehaviour
 
         burger.transform.parent = null;
         GameManager.Instance.DestroyObject(burger);
+    }
+
+    bool CheckOrder(GameObject burger, GameObject client)
+    {
+        return true;
     }
 }

@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class CheeseburgerOrder : Order
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject m_clientSpeechBox;
 
-    // Update is called once per frame
-    void Update()
+    protected override int[] ingredients { get; set; }
+    protected override GameObject clientSpeechBox { get => m_clientSpeechBox; set => m_clientSpeechBox = value; }
+    protected override GameObject clientSpeechBoxObj { get; set; }
+
+    private void Awake()
     {
-        
+        ingredients = new int[] { 0 };
     }
 }
