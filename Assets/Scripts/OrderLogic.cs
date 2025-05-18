@@ -37,7 +37,7 @@ public class OrderLogic : MonoBehaviour
         {
             GameObject client = Queue.Instance.clientsInQueue[0];
 
-            if (client.transform.childCount > 0)
+            if (client.transform.GetComponentInChildren<Order>() != null)
             {
                 // Transfer the burger to the client
                 burger.transform.SetParent(client.transform, true);
@@ -59,11 +59,11 @@ public class OrderLogic : MonoBehaviour
                 return;
             }
         }
-        // Launch the burger upwards
+        // Launch the burger
         foreach (Rigidbody rb in burger.transform.GetComponentsInChildren<Rigidbody>())
         {
             burger.transform.SetParent(null, true);
-            rb.AddForce(Vector3.up * throwForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.forward * throwForce, ForceMode.Impulse);
         }
         // Lengthen the time for deletion
         time += 3f;

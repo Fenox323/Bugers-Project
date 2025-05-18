@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static Queue queue { get; private set; }
     private CameraManagement mainCamera;
     [SerializeField] private Player player;
+    private GameUI gameUI;
 
     [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
     public List<GameObject> availableOrders = new List<GameObject>();
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
     public GameObject activeBurger { get; set; }
+
+    [SerializeField] private float clientSpawnRate;
 
     [Serializable]
     public class PrefabPool
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         queue = GameObject.Find("Ordering Zone").GetComponent<Queue>();
         mainCamera = GameObject.Find("Camera").GetComponent<CameraManagement>();
+        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
 
         startPos = GameObject.Find("Start Zone").transform.position;
         exitPos = GameObject.Find("Exit Zone").transform.position;
@@ -46,6 +50,9 @@ public class GameManager : MonoBehaviour
         }
         // Create a new burger
         CreateBurger();
+
+        // Start gameplay loop
+        InvokeRepeating("CreateClient", 3f, clientSpawnRate);
     }
 
     public GameObject CreateObject(GameObject prefab)
@@ -127,12 +134,27 @@ public class GameManager : MonoBehaviour
         return activeBurger;
     }
 
-    void OnJump()
+    void CreateClient()
     {
         GameObject obj = CreateObject("Client");
         if (obj != null)
         {
             obj.GetComponent<Client>().Initialize();
         }
+    }
+
+    void OnSend()
+    {
+        if (activeSpot == 0) OrderLogic.Instance.OrderDone();
+    }
+
+    void OnMoveLeft()
+    {
+        gameUI.MoveLeftPressed();
+    }
+
+    void OnMoveRight()
+    {
+        gameUI.MoveRightPressed();
     }
 }

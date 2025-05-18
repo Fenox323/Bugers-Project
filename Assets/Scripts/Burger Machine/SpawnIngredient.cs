@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnIngredient : MonoBehaviour
 {
     [SerializeField] private List<GameObject> ingredients;
+    [SerializeField] private float sendForce;
     private Vector3 spawnPosition;
 
     private void Start()
@@ -30,6 +31,8 @@ public class SpawnIngredient : MonoBehaviour
                     Rigidbody rb = obj.GetComponent<Rigidbody>();
                     rb.constraints = RigidbodyConstraints.None;
                     rb.useGravity = true;
+
+                    rb.AddForce(Vector3.down * sendForce, ForceMode.Impulse);
 
                     obj.GetComponent<Ingredient>().Spawn();
                 }
