@@ -10,6 +10,6 @@ public class HamburgerOrder : Order
 
     private void Awake()
     {
-        ingredients = new int[] { 0 };
+        ingredients = new int[] { 0, 4, 0 };
     }
 }
