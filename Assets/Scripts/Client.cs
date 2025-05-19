@@ -11,21 +11,19 @@ public class Client : MonoBehaviour
     public Vector3 target { get; set; }
     public GameObject order { get; set; }
     public bool hasReceivedOrder { get; set; }
-    private List<GameObject> availableOrders = new List<GameObject>();
     private GameObject speechBubble;
     private bool correctOrder;
 
     void Awake()
     {
         // Setup the object
-        availableOrders = GameManager.Instance.availableOrders;
         speechBubble = gameObject.transform.Find("Speech Bubble").gameObject;
     }
 
     public void Initialize()
     {
         // Set starting parameters
-        order = availableOrders[Random.Range(0, availableOrders.Count)];
+        order = GameManager.Instance.GetRandomOrder();
         hasReceivedOrder = false;
         transform.position = GameManager.Instance.GetPosition("Start");
         target = transform.position;

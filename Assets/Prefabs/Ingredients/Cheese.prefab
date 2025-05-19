@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6058414332773436873}
   - component: {fileID: 4181683452635737041}
   - component: {fileID: -3689639839718649730}
-  - component: {fileID: -6469136406821420395}
+  - component: {fileID: 8629727691716713091}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Ingredient
@@ -137,7 +137,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6469136406821420395
+--- !u!114 &8629727691716713091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4727221583291533711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834001e552374924988d73bdf6a7c114, type: 3}
+  m_Script: {fileID: 11500000, guid: 634d73e997fcf57419a3359a93b4e67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   randomPosRange: 0.15

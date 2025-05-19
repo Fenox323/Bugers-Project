@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     private CameraManagement mainCamera;
     [SerializeField] private Player player;
     private GameUI gameUI;
-    
 
-    [SerializeField] private List<PrefabPool> prefabs = new List<PrefabPool>();
-    public List<GameObject> availableOrders = new List<GameObject>();
+    private RandomWeighted orderRandomizer = new();
+    public static RandomWeighted randomBurgerRandomizer = new();
+    [SerializeField] private List<PrefabPool> prefabs = new();
+    [SerializeField] private List<ObjectWeightPair> orders = new();
+    [SerializeField] private List<float> burgerRandomizerValues = new();
 
     public int activeSpot { get; private set; }
     private Vector3 startPos, exitPos, playerClientPos, playerBurgerPos;
@@ -22,6 +24,13 @@ public class GameManager : MonoBehaviour
     public bool buttonsEnabled { get; set; } = true;
 
     [SerializeField] private float clientSpawnRate;
+
+    [Serializable]
+    public class ObjectWeightPair
+    {
+        public GameObject obj;
+        public float weight;
+    }
 
     [Serializable]
     public class PrefabPool
@@ -52,6 +61,19 @@ public class GameManager : MonoBehaviour
         {
             ObjectPooling.Instance.PoolObject(prefab.obj, prefab.amount, prefab.parent);
         }
+
+        // Initialize order randomizer
+        foreach (ObjectWeightPair pair in orders)
+        {
+            orderRandomizer.Add(pair.obj, pair.weight);
+        }
+
+        // Initialize burger randomizer
+        for (int i = 0; i < burgerRandomizerValues.Count; i++)
+        {
+            randomBurgerRandomizer.Add(i, burgerRandomizerValues[i]);
+        }
+
         // Create a new burger
         CreateBurger();
 
@@ -130,11 +152,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject GetRandomOrder()
+    {
+        return (GameObject)orderRandomizer.Randomize();
+    }
+
     public GameObject CreateBurger()
     {
+        activeBurger = CreateObject("Burger");
         activeBurger.transform.GetChild(0).localPosition = Vector3.zero;
         activeBurger.transform.GetChild(0).localRotation = Quaternion.Euler(Vector3.zero);
-        activeBurger = CreateObject("Burger");
         activeBurger.transform.position = new Vector3(22.055f, 4.67f, 0.004f);
         activeBurger.transform.rotation = Quaternion.Euler(Vector3.zero);
         return activeBurger;

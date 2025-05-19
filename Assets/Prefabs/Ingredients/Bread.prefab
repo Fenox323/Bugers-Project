@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2490539400912860646}
   - component: {fileID: 7565187476399713861}
   - component: {fileID: 3520372019789877247}
-  - component: {fileID: 5318863530527188098}
+  - component: {fileID: 629314517079860929}
   m_Layer: 0
   m_Name: Bread
   m_TagString: Ingredient
@@ -138,7 +138,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &5318863530527188098
+--- !u!114 &629314517079860929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2477005541471647060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f639e02aa55198439d3f3ea61c2aabe, type: 3}
+  m_Script: {fileID: 11500000, guid: 634d73e997fcf57419a3359a93b4e67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   randomPosRange: 0.1

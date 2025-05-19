@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using TreeEditor;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,8 +13,11 @@ public class RandomOrder : Order
     public override int[] ingredients { get; set; }
     protected override GameObject clientSpeechBox { get; set; }
     protected override GameObject clientSpeechBoxObj { get; set; }
+    public override float patience { get; protected set; }
+    public override float score { get; protected set; }
 
     [SerializeField] private List<GameObject> visualIngredients;
+    [SerializeField] private int ingredientsInBurger;
     
     private void Awake()
     {
@@ -21,53 +27,14 @@ public class RandomOrder : Order
 
     int[] CreateRandomOrder()
     {
-        List<int> randomIngredients = new List<int>();
         List<int> sortedIngredients = new List<int>();
-        
-        bool hasTopBun = Random.value < 0.8f;
-        bool hasTomato = Random.value < 0.4f;
-        bool hasCheese = Random.value < 0.5f;
-        bool hasLettuce = Random.value < 0.4f;
-        bool hasMeat = Random.value < 0.95f;
+        int[] randomIngredients = GameManager.randomBurgerRandomizer.Randomize(ingredientsInBurger).Select(o => Convert.ToInt32(o)).ToArray();
 
         // Creating a burger
         sortedIngredients.Add(0);
-        if (hasTomato)
-        {
-            for (int i = 0; i < Random.Range(1, 6); i++)
-            {
-                randomIngredients.Add(1);
-            }
-        }
-        if (hasCheese)
-        {
-            for (int i = 0; i < Random.Range(1, 3); i++)
-            {
-                randomIngredients.Add(2);
-            }
-        }
-        if (hasLettuce)
-        {
-            for (int i = 0; i < Random.Range(1, 3); i++)
-            {
-                randomIngredients.Add(3);
-            }
-        }
-        if (hasMeat)
-        {
-            for (int i = 0; i < Random.Range(1, 4); i++)
-            {
-                randomIngredients.Add(4);
-            }
-        }
-        // Shuffle ingredients in the middle and add them to the burger
-        Shuffle<int>(randomIngredients);
+        if (Random.value < 0.95f) sortedIngredients.Add(4);
         sortedIngredients.AddRange(randomIngredients);
-        //
-        if (hasTopBun)
-        {
-            sortedIngredients.Add(0);
-        }
+        if (Random.value < 0.90f) sortedIngredients.Add(0);
 
         return sortedIngredients.ToArray();
     }
@@ -97,18 +64,5 @@ public class RandomOrder : Order
     {
         clientSpeechBoxObj.transform.SetParent(transform.parent.Find("Speech Bubble"), true);
         clientSpeechBoxObj.transform.localPosition = Vector3.zero;
-    }
-
-    private void Shuffle<T>(List<T> list)
-    {
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1); // pick a random index between 0 and i (inclusive)
-
-            // Swap list[i] with list[j]
-            T temp = list[i];
-            list[i] = list[j];
-            list[j] = temp;
-        }
     }
 }

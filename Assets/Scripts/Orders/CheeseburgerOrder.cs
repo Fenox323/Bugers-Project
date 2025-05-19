@@ -3,10 +3,14 @@ using UnityEngine;
 public class CheeseburgerOrder : Order
 {
     [SerializeField] GameObject m_clientSpeechBox;
+    [SerializeField] float m_patience;
+    [SerializeField] float m_score;
 
     public override int[] ingredients { get; set; }
     protected override GameObject clientSpeechBox { get => m_clientSpeechBox; set => m_clientSpeechBox = value; }
     protected override GameObject clientSpeechBoxObj { get; set; }
+    public override float patience { get => m_patience; protected set => m_patience = value; }
+    public override float score { get => m_score; protected set => m_score = value; }
 
     private void Awake()
     {

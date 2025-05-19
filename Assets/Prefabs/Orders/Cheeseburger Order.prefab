@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_clientSpeechBox: {fileID: 7487346861663262960, guid: 1a1d17e395e428c498a085f2fbb42278, type: 3}
+  m_patience: 7
+  m_score: 70

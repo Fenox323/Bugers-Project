@@ -8,6 +8,8 @@ public abstract class Order : MonoBehaviour
     public abstract int[] ingredients { get; set; }
     protected abstract GameObject clientSpeechBox { get; set; }
     protected abstract GameObject clientSpeechBoxObj { get; set; }
+    public abstract float patience { get; protected set; }
+    public abstract float score { get; protected set; }
 
     public virtual void ShowBurgerOrder()
     {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2490539400912860646}
   - component: {fileID: 7565187476399713861}
   - component: {fileID: 3520372019789877247}
-  - component: {fileID: 4954987975440768907}
+  - component: {fileID: -8893991505028010938}
   m_Layer: 0
   m_Name: Lettuce
   m_TagString: Ingredient
@@ -138,7 +138,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4954987975440768907
+--- !u!114 &-8893991505028010938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2477005541471647060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3692bcd3bf8a4124f88951e73c87bdec, type: 3}
+  m_Script: {fileID: 11500000, guid: 634d73e997fcf57419a3359a93b4e67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   randomPosRange: 0.1
