@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualIngredients:
-  - {fileID: 2477005541471647060, guid: 5af292a65a071c540b596d9b89a8e4c6, type: 3}
-  - {fileID: 2477005541471647060, guid: 65578419e479bff439f34b42dc640f66, type: 3}
-  - {fileID: 4727221583291533711, guid: 101e97b48c4e7534b93f7b94aed7e535, type: 3}
-  - {fileID: 2477005541471647060, guid: 9fdc343b290a698468a35c79422c5d3b, type: 3}
-  - {fileID: 2477005541471647060, guid: 6511f4fbbd169b141a1f78d393c3abbd, type: 3}
-  ingredientsInBurger: 5
+  - {fileID: 3657344459697298855, guid: 336f7c6219a31024baeedc828f88e75f, type: 3}
+  - {fileID: 2897385640255741912, guid: 37ee047a0218bea42bcabcc7a0570093, type: 3}
+  - {fileID: 2075451961055949379, guid: 588b02485d3a0ce4481fae28d7bf437e, type: 3}
+  - {fileID: 4679612743627741380, guid: 9bbba17cbcd9f1e438c8e6dacce3314a, type: 3}
+  - {fileID: 2411367386657460675, guid: bb73882ea4a41964eac3e6e013c20c44, type: 3}
+  ingredientsInBurger: 8

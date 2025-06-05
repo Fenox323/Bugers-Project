@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e087ae7fbd3e2b42b0ad27a2cbe6604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_clientSpeechBox: {fileID: 7487346861663262960, guid: 1a1d17e395e428c498a085f2fbb42278, type: 3}
+  m_clientSpeechBox: {fileID: 2897385640255741912, guid: 23bf2c0533f78174d933662936e36952, type: 3}
   m_patience: 7
   m_score: 70

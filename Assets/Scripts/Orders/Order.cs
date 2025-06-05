@@ -16,6 +16,7 @@ public abstract class Order : MonoBehaviour
         clientSpeechBoxObj = Instantiate(clientSpeechBox);
         clientSpeechBoxObj.transform.SetParent(transform.parent.Find("Speech Bubble"), true);
         clientSpeechBoxObj.transform.localPosition = Vector3.zero;
+        clientSpeechBoxObj.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     public virtual void HideBurgerOrder()
