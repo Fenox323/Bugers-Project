@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class Client : MonoBehaviour
 {
-    [SerializeField] private float patienceTimerInSec;
+    private float patienceTimerInSec;
     [SerializeField] private float speed;
     public Vector3 target { get; set; }
     public GameObject order { get; set; }
@@ -79,6 +79,8 @@ public class Client : MonoBehaviour
 
     IEnumerator PatienceStartTimer()
     {
+        patienceTimerInSec = order.GetComponent<Order>().patience;
+
         bool orderTimeout = false;
         float patience = 100;
 
@@ -100,7 +102,7 @@ public class Client : MonoBehaviour
 
         if (!orderTimeout && correctOrder)
         {
-            GameManager.Instance.GoodBurger();
+            GameManager.Instance.GoodBurger(order);
         }
         else
         {

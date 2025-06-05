@@ -167,9 +167,9 @@ public class GameManager : MonoBehaviour
         return activeBurger;
     }
 
-    public void GoodBurger()
+    public void GoodBurger(GameObject order)
     {
-        score += 10;
+        score += order.GetComponent<Order>().score;
         gameUI.ChangeScore(score);
     }
 

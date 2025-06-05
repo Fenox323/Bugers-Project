@@ -15,7 +15,7 @@ public class RandomOrder : Order
     protected override GameObject clientSpeechBox { get; set; }
     protected override GameObject clientSpeechBoxObj { get; set; }
     public override float patience { get; protected set; }
-    public override float score { get; protected set; }
+    public override int score { get; protected set; }
 
     [SerializeField] private List<GameObject> visualIngredients;
     [SerializeField] private int ingredientsInBurger;
@@ -38,7 +38,7 @@ public class RandomOrder : Order
         if (Random.value < 0.90f) sortedIngredients.Add(0);
 
         // Setting patience and scoring
-        patience = sortedIngredients.Count * 2.5f;
+        patience = sortedIngredients.Count * 2.2f;
         score = sortedIngredients.Count * 20;
 
         return sortedIngredients.ToArray();

@@ -50,4 +50,4 @@ MonoBehaviour:
   - {fileID: 2075451961055949379, guid: 588b02485d3a0ce4481fae28d7bf437e, type: 3}
   - {fileID: 4679612743627741380, guid: 9bbba17cbcd9f1e438c8e6dacce3314a, type: 3}
   - {fileID: 2411367386657460675, guid: bb73882ea4a41964eac3e6e013c20c44, type: 3}
-  ingredientsInBurger: 8
+  ingredientsInBurger: 2
