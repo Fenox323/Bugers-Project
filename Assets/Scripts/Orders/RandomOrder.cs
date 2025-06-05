@@ -18,7 +18,6 @@ public class RandomOrder : Order
     public override int score { get; protected set; }
 
     [SerializeField] private List<GameObject> visualIngredients;
-    [SerializeField] private int ingredientsInBurger;
     
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class RandomOrder : Order
     int[] CreateRandomOrder()
     {
         List<int> sortedIngredients = new List<int>();
-        int[] randomIngredients = GameManager.randomBurgerRandomizer.Randomize(ingredientsInBurger).Select(o => Convert.ToInt32(o)).ToArray();
+        int[] randomIngredients = GameManager.randomBurgerRandomizer.Randomize(GameManager.Instance.randomIngredientsNumber).Select(o => Convert.ToInt32(o)).ToArray();
 
         // Creating a burger
         sortedIngredients.Add(0);

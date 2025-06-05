@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
@@ -22,6 +24,13 @@ public class GameManager : MonoBehaviour
     public GameObject activeBurger { get; set; }
     private int score = 0;
     public bool buttonsEnabled { get; set; } = true;
+    public int difficulty {  get; private set; }
+    private int gamemode;
+    public int randomIngredientsNumber { get; private set; } = 2;
+    private int clientsServed = 0;
+    private int clientsServedDiffThreshold = 7;
+    public bool gameEnded { get; private set; }
+    public float patienceMultiplier { get; private set; } = 1;
 
     [SerializeField] private float clientSpawnRate;
 
@@ -42,6 +51,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        try
+        {
+            gamemode = MainManager.Instance.gamemode;
+            difficulty = MainManager.Instance.difficulty;
+        }
+        catch
+        {
+            gamemode = 0;
+            difficulty = 0;
+        }
+
         Instance = this;
         queue = GameObject.Find("Ordering Zone").GetComponent<Queue>();
         mainCamera = GameObject.Find("Camera").GetComponent<CameraManagement>();
@@ -56,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        InitializeGamemode();
+
         // Pool objects at the start of the game
         foreach (PrefabPool prefab in prefabs)
         {
@@ -78,7 +100,9 @@ public class GameManager : MonoBehaviour
         CreateBurger();
 
         // Start gameplay loop
-        InvokeRepeating("CreateClient", 3f, clientSpawnRate);
+        StartCoroutine(CreateClient());
+
+        gameUI.ChangeScore(0);
     }
 
     public GameObject CreateObject(GameObject prefab)
@@ -154,7 +178,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetRandomOrder()
     {
-        return (GameObject)orderRandomizer.Randomize();
+        if (gamemode == 2)
+        {
+            return orders[4].obj;
+        }
+        else
+        {
+            return (GameObject)orderRandomizer.Randomize();
+        }
     }
 
     public GameObject CreateBurger()
@@ -169,37 +200,137 @@ public class GameManager : MonoBehaviour
 
     public void GoodBurger(GameObject order)
     {
-        score += order.GetComponent<Order>().score;
-        gameUI.ChangeScore(score);
+        clientsServed++;
+        if (gamemode == 0)
+        {
+            score += order.GetComponent<Order>().score;
+            gameUI.ChangeScore(score);
+
+            if (clientsServed == clientsServedDiffThreshold) {
+                IncreaseDifficulty();
+            }
+        }
+        else if (gamemode == 1)
+        {
+            score += order.GetComponent<Order>().score;
+            gameUI.ChangeScore(score);
+        }
+        else if (gamemode == 2)
+        {
+            gameUI.ChangeScore(clientsServed);
+        }
     }
 
     public void BadBurger()
     {
-        score -= 20;
-        gameUI.ChangeScore(score);
+        if (gamemode == 0)
+        {
+            GameOver();
+        }
+        else if (gamemode == 1)
+        {
+            score -= 100;
+            gameUI.ChangeScore(score);
+        }
     }
 
-    void CreateClient()
+    IEnumerator CreateClient()
     {
-        GameObject obj = CreateObject("Client");
-        if (obj != null)
+        yield return new WaitForSeconds(2);
+        while (!gameEnded)
         {
-            obj.GetComponent<Client>().Initialize();
+            GameObject obj = CreateObject("Client");
+            if (obj != null)
+            {
+                obj.GetComponent<Client>().Initialize();
+            }
+            yield return new WaitForSeconds(clientSpawnRate);
         }
+    }
+
+    void InitializeGamemode()
+    {
+        switch(gamemode)
+        {
+            case 0:
+                clientSpawnRate = 6;
+                randomIngredientsNumber = 2;
+                gameUI.scoreText = "Score";
+                break;
+
+            case 1:
+                clientSpawnRate = 1;
+                randomIngredientsNumber = 4;
+                gameUI.scoreText = "Score";
+                patienceMultiplier *= 0.8f;
+                gameUI.EnableTimeLeftUI();
+                StartCoroutine(TimeAttackCountdown());
+                break;
+
+            case 2:
+                clientSpawnRate = 2;
+                randomIngredientsNumber = 2 + (difficulty * 4);
+                gameUI.scoreText = "Clients";
+                break;
+        }
+    }
+
+    IEnumerator TimeAttackCountdown()
+    {
+        yield return new WaitForSeconds(2);
+        int timeLeft = 60;
+        while (timeLeft > 0)
+        {
+            yield return new WaitForSeconds(1);
+            timeLeft--;
+            gameUI.ChangeTime(timeLeft);
+        }
+        GameOver();
+    }
+
+    void IncreaseDifficulty()
+    {
+        if (clientSpawnRate > 1.5f) {
+            clientSpawnRate -= 0.5f;
+        }
+        if (randomIngredientsNumber < 10)
+        {
+            randomIngredientsNumber++;
+        }
+        patienceMultiplier *= 0.95f;
+    }
+
+    void GameOver()
+    {
+        gameEnded = true;
+        StopAllCoroutines();
+        MainManager.Instance.CompareHighScore(score);
+        gameUI.GameOver();
     }
 
     void OnSend()
     {
-        if (activeSpot == 0) OrderLogic.Instance.OrderDone();
+        if (!gameEnded && activeSpot == 0) OrderLogic.Instance.OrderDone();
     }
 
     void OnMoveLeft()
     {
-        gameUI.MoveLeftPressed();
+        if (!gameEnded)
+        {
+            gameUI.MoveLeftPressed();
+        }
     }
 
     void OnMoveRight()
     {
-        gameUI.MoveRightPressed();
+        if (!gameEnded)
+        {
+            gameUI.MoveRightPressed();
+        }
+    }
+
+    void OnQuit()
+    {
+        GameOver();
     }
 }

@@ -79,7 +79,7 @@ public class Client : MonoBehaviour
 
     IEnumerator PatienceStartTimer()
     {
-        patienceTimerInSec = order.GetComponent<Order>().patience;
+        patienceTimerInSec = order.GetComponent<Order>().patience * GameManager.Instance.patienceMultiplier;
 
         bool orderTimeout = false;
         float patience = 100;
