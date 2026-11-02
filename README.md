@@ -1,6 +1,6 @@
 # Bugers
 
-Bugers is a burger assembly game in which player has to complete customer orders under time pressure, requiring quick order analysis and good memory.
+Bugers is a burger assembly game where players complete customer orders under time pressure, requiring quick decision-making, order analysis and memory.
 
 The game features three game modes:
 - Standard - progressive difficulty scaling and persistent high score system
@@ -11,9 +11,17 @@ The game features three game modes:
 
 [Unity Play](https://play.unity.com/en/games/39e7f14b-6da9-460a-b132-c291c281a6b3/bugers)
 
-## Goal of this project
+## Screenshots
 
-This is a small, first Unity project created to practice game development, gameplay systems and object-oriented programming. Project was created directly after completing the bigger part of Unity's "Junior Programmer" learning pathway, thus I've tried to make use of many different systems discovered when following the tutorial.
+<img width="1920" height="1080" alt="Image Sequence_004_0000" src="https://github.com/user-attachments/assets/47268f0d-81d7-4a95-a95f-b0b35d6bc30d" />
+<img width="1920" height="1080" alt="Image Sequence_006_0000" src="https://github.com/user-attachments/assets/c11e4b13-5696-47bc-b330-2f45049ddad3" />
+<img width="1920" height="1080" alt="Image Sequence_008_0000" src="https://github.com/user-attachments/assets/ae75ca9a-2ae8-41e8-ae9d-ada17209f3e0" />
+
+## Project Overview
+
+Bugers is a small Unity project created after completing most of Unity's Junior Programmer learning pathway.
+
+The goal of the project was to apply newly learned concepts in a complete game environment while exploring gameplay systems, object-oriented programming and data persistence.
 
 ## Main Features
 
@@ -43,14 +51,21 @@ This is a small, first Unity project created to practice game development, gamep
 - Save/Load system based on JSON files
 - Abstract class hierarchy for burger orders
 - Gameplay state management
+- Coroutine-driven gameplay logic
+- Singleton manager architecture
+- Dynamic difficulty scaling
 
-## What I've Learned
+## My Responsibilities
 
 - Gameplay design
 - Game systems implementation
 - UI implementation
 - Scene setup
 - Game balancing
+- Testing and debugging
+
+## What I Learned
+
 - Unity workflow
 - C# programming
 - Gameplay architecture
@@ -63,10 +78,4 @@ This is a small, first Unity project created to practice game development, gamep
 - Audio system
 - Better visual presentation
 - Additional customer behaviours
-
-## Screenshots
-
-<img width="1920" height="1080" alt="Image Sequence_004_0000" src="https://github.com/user-attachments/assets/47268f0d-81d7-4a95-a95f-b0b35d6bc30d" />
-<img width="1920" height="1080" alt="Image Sequence_006_0000" src="https://github.com/user-attachments/assets/c11e4b13-5696-47bc-b330-2f45049ddad3" />
-<img width="1920" height="1080" alt="Image Sequence_008_0000" src="https://github.com/user-attachments/assets/ae75ca9a-2ae8-41e8-ae9d-ada17209f3e0" />
-
+- Bug fixes
